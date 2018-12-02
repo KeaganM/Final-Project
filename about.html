@@ -1,38 +1,56 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+ <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	 <head>
-     <title>AboutUs</title>
-     <h1>About Us</h1>
-  </head>
+     <title>About Us</title>
+     <h1>About the Team</h1>
+     <link rel="stylesheet" type="text/css" href="final.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
   <body>
-  <h3>Andrew Brown</h3>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html">Map of Austin</a>
+  <a href="about.html">About the Team</a>
+  <a href="References.html">References</a>
+</div>
+<div id="main">
+	 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;<br></span>
+</div>
+  <div id="intro">
+  <h3>Andrew Brown</h3> <br>
     <img src="drew.jpg" style="width:200px;height:200px">
     <p>
       I am a Senior at Texas State University. I will be graduating in May with a B.S. in GIS and a minor in Computer Science.
       I'm currently an intern at a gas pipeline company and looking to pursue a career in the energy industry.
     </p>
-    
-  <h3>Keagan</h3>
+          <br><br><br>
+  <h3>Keagan McNew</h3>
     <img src = "keagan.jpg" width = "250" height = "300">
     <p>
-      My name is Keagan McNew, I am a second year Masters student at Texas State University. I received 
-      my undergraduate degree at Texas State University, where I majored in physical geography and minored in 
-      geology; I also received a GIS certificate.   
+      I am a second year masters student at Texas State University. I received
+      my undergraduate degree at Texas State University, where I majored in physical geography and minored in
+      geology; I also received a GIS certificate.
     </p>
-  
-  <h3>Harper</h3>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Harp.png" style="width:200px;height:200px">
+        <br><br><br>
+  <h3>Harper Ream</h3>
+    <img src="harper.jpg" style="width:300px;height:400px">
     <p>
-      I am a senior majoring in Geographic Information Systems and minoring in Business Administration. My favorite colors are
-      yellow, blue, and grey. I am looking to pursue a career in subway transportation.
+      I am a Senior majoring in Geographic Information Systems and minoring in Business Administration. I am looking to pursue a career in subway transportation.
     </p>
-  <p>
-    Here is the change that I have made.
-  </p>
+    </div>
+  <script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.5)";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+    document.body.style.backgroundColor = "#107896";
+}
+</script>
   </body>
 </html>
-
-
-other changes
