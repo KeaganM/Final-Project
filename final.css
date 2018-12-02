@@ -1,0 +1,117 @@
+html, body,#viewDiv{
+background-color: #107896;
+padding: 0;
+margin: 0;
+height: 100%;
+width: 100%;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #107896;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+		position: fixed;
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #FFFFFF;
+    display: block;
+    transition: 0.3s;
+    position: relative;
+}
+.sidenav a:hover {
+    color: #ADD8E6;
+}
+.sidenav .closebtn {
+    top: 0;
+    right: 50px;
+    font-size: 36px;
+    margin-left: 50px;
+		position: relative;
+}
+#viewDiv {
+	position:relative;
+}
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+    top: 85%;
+    left: 8%;
+    font-family: Garamond;
+}
+#mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+    font-family: Garamond;
+    font-size: 20px;
+}
+h1{
+	color: #ADD8E6;
+	left: 300px;
+	position:absolute;
+	top: 0;
+	text-align:left;
+  font-family: Garamond;
+}
+h2{
+	color: #ADD8E6;
+  font-family: Garamond;
+}
+body {
+    font-family: "Lato", Garamond;
+    transition: background-color .5s;
+}
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+    color: rgba(0,0,0,0.4);
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#intro {
+	position: absolute;
+	top: 0;
+	left: 250px;
+  right: 250px;
+	text-align: center;
+	border: 1px solid black;
+	color: #ADD8E6;
+	padding: 35px;
+  font-family: Garamond;
+  font-size: 20px;
+}
+#content1{
+	color:#ADD8E6;
+	position: absolute;
+	text-align: center;
+	left: 250px;
+	top: 150px;
+  font-family: Garamond;
+
+}
+.references {
+	text-align: left;
+	color: black;
+	font-family: arial;
+	position: absolute;
+	left: 250px;
+	top: 0;
+	border: 1px solid black;
+	padding: 60px;
+  right: 50px;
+}
