@@ -6,56 +6,156 @@
 <title>Austin Urban Development</title>
 <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<!--<link rel="stylesheet" href="style.css">-->
 <script src="https://js.arcgis.com/4.9/"></script>
+<style>
 
+html, body, #viewDiv {
+   padding: 0;
+   margin: 0;
+   height: 100%;
+   width: 100%;
+ }
+
+#viewDiv {
+ position:relative;
+}
+
+#mydiv {
+   position: absolute;
+   z-index: 9;
+   background-color: #3A3838;
+   text-align: center;
+   border: 6px solid #0E6661;
+   border-style:double;
+   top: 3%;
+   left: 8%;
+   height: 30%;
+   width:300px;
+   opacity: 0.9;
+}
+
+#mydivheader {
+   padding: 10px;
+   cursor: move;
+   z-index: 10;
+   background-color: #0E6661;
+   color: #fff;
+}
+
+
+#date_one {
+  position:absolute;
+  width:20%;
+  top:65%;
+  left:25%;
+
+}
+
+#date_two {
+  position:absolute;
+  width:20%;
+  top:65%;
+  left:50%;
+
+}
+
+#fields {
+  position:absolute;
+  width:95%;
+  top: 28%;
+  right: 2%;
+}
+
+#variableselector{
+  text-align: center;
+  left: 15%;
+  color:white;
+}
+
+#hidewindow {
+   position:absolute;
+   right: 1%;
+   top:1px;
+}
+
+#htmlslider {
+  position: relative:
+  bottom: 30%;
+  width:80%;
+}
+
+#amountofchange {
+  position: absolute;
+  top: 45%;
+  left: 28%;
+  color: white;
+}
+
+#amountofchange #year1  {
+  position: absolute;
+  top: 55%;;
+  font-size: 12px;
+}
+
+#amountofchange #year2  {
+  position: absolute;
+  top: 55%;
+  left: 60%;
+  font-size: 12px;
+}
+
+#amountofchange #explain {
+  position: absolute;
+  font-size: 10px;
+  top: 150%;
+}
+
+#changebutton {
+  position: absolute;
+  bottom: 5%;
+  left: 37%;
+}
+
+</style>
 </head>
-
 <body>
  <div id="mydiv">
    <button id = "hidewindow" type = "btn"><i class = "fa fa-window-minimize"></i></button>
   <div id="mydivheader">Analysis Tab</div>
   <div id= "variableselector"><p>Variable Changer </p></div>
   <select id = "fields">
-  	<option value = "per_edcu">Percent Education less than Highschool</option>
-  	<option value = "age">Median Age</option>
- 	<option value = "num_pop"> Number of Population</option>
-  	<option value = "med_income">Median Income</option>
+  	<option value = "F2000b_col_">Number of Blue Collar Workers</option>
+  	<option value = "F2000per_ed">Precent of people with < Highschool</option>
+ 	<option value = "F2000med_ag"> Median Age</option>
+  	<option value = "F2000med_in">Median Income</option>
+    	<option value = "F2000num_po">Number of Population</option>
+      	<option value = "F2000num_fa">Number of Family Population</option>
+        	<option value = "F2000w_colo_">Number of White Collar Workers</option>
   </select>
-  <div = id = "years">
+  <div id = "amountofchange">
+  <p id = "amount">Amount of Change</p>
+  <p id = "year1">Year 1</p>
+  <p id = "year2"> Year 2</p>
+  <p id = "explain"> (Year 2 - Year 1/Year1 ) * 100 = Amount of Change</p>
+  </div>
   <select id = "date_one">
-    <
+    <option value = "0">2000</option>
+    <option value = "1">2010</option>
   </select>
   <select id = "date_two">
-
+    <option value = "0">2000</option>
+    <option value = "1">2010</option>
   </select>
-</div>
+  <div>
+    <button id = "changebutton" type = "button">Analyze!</button>
+  </div>
   <div id = "slider" class = "slidercontainer">
   	<br><input autocomplete = "off" id = "htmlslider" type = "range" min = "0" max = "1" step = "0.01"  value ="0" class = "slider" onchange = "updateSliderValue()" >  <!-- autocomplete resets the slider position -->
-  </div>
   <span id = "slidervalue">2000</span>
+</div>
   </div>
 <script>
-var variable_choices = [[],[]];
-
-function fillVariableArray(){
-  var i;
-  var j;
-  var new_field_names = ["b_col_","per_ed","med_ag","med_in","num_po","num_fa","w_col_"];
-  var date  = [2000,2010];
-  for (i=0;i<2;i++){
-    for(j=0;j<7;j++){
-      variable_choices[i][j] = "F"+date[i]+new_field_names[j];
-    }
-  }
-}
-
-var field_labels = ["Number of Blue Collar Workers",
-"Percent of Population with < Highschool Education",
-"Median Age","Median Income","Number of Total Population",
-"Number of Family Population","Number of White Collar Workers"]
-
-fillVariableArray();
 
 //***** Basic Variables *****
   var map = [];
@@ -66,6 +166,11 @@ fillVariableArray();
   var scalebar = [];
   var bgExpand = [];
   var searchwidget = [];
+  var variable_choices = [[],[]];
+  var field_labels = ["Number of Blue Collar Workers",
+  "Percent of Population with < Highschool Education",
+  "Median Age","Median Income","Number of Total Population",
+  "Number of Family Population","Number of White Collar Workers"]
 
 //***** Layer Variables *****
   var master_layer = [];
@@ -91,14 +196,16 @@ fillVariableArray();
   };
 
 
-
-//***** Field Variables *****
-
 //***** Event Variables *****
   var dropdownchange = document.getElementById("fields");
   var dropdownvalue = fields.value;
+    var dropdowndate1 = document.getElementById("date_one");
+      var dropdowndatevalue1 = date_one.value;
+      var dropdowndate2 = document.getElementById("date_two");
+        var dropdowndatevalue2 = date_two.value;
   var slider = document.getElementById("htmlslider");
   var slidervalue = htmlslider.value;
+  var analyzebutton = document.getElementById("changebutton");
 
   function updateSliderValue(){
   	slidervalue = htmlslider.value;
@@ -108,6 +215,22 @@ fillVariableArray();
   		document.getElementById("slidervalue").innerHTML = 2010;
   	}
   }
+
+
+  function fillVariableArray(){
+    var i;
+    var j;
+    var new_field_names = ["b_col_","per_ed","med_ag","med_in","num_po","num_fa","w_col_"];
+    var date  = [2000,2010];
+    for (i=0;i<2;i++){
+      for(j=0;j<7;j++){
+        variable_choices[i][j] = "F"+date[i]+new_field_names[j];
+      }
+    }
+  }
+
+fillVariableArray();
+
 
 require([
   "esri/Map",
@@ -162,7 +285,9 @@ require([
   colorRendererCreator
   ){
 
-
+      master_layer = new FeatureLayer({
+        url: popUrl
+      });
 
 
     function createRenderedLayers(){
@@ -175,14 +300,9 @@ require([
             url:popUrl,
             popupTemplate: popupTemplate
           });
-        //  map.add(rendered_layers[i][j]);
         }
       }
     }
-
-
-
-
 
     function createRenders(){
       var i;
@@ -206,6 +326,7 @@ require([
 //**** Create a new Map and MapView instance *****
   map = new Map({
     basemap: "dark-gray",
+    layers: master_layer
 	});
 
   view = new MapView({
@@ -215,11 +336,6 @@ require([
     center: [-97.7431, 30.2672],
     highlightOptions:{color:"orange"}
 	});
-
-
-
-
-
 
 
 function pushRendering(layer,renders){
@@ -240,23 +356,22 @@ function pushRenderIntoLayers(){
   }
 }
 
+function addMaps(){
+  var i;
+  var j;
+  for (i = 0;i<2;i++){
+    for (j = 0; j<7; j++){
+      map.add(rendered_layers[i][j]);
+    }
+  }
+}
+
   createRenderedLayers();
     createRenders();
 pushRenderIntoLayers();
+addMaps();
 
-map.add(rendered_layers[0][3]);
-
-
-
-
-  /*map.add(master_layer);
-
-  colorRendererCreator.createClassBreaksRenderer(renders[0][0])
-  .then(function(response){
-  master_layer.renderer = response.renderer;
-});*/
-
-//*****Search Widget*****
+//*****Search Widget**********************************************************
   searchwidget = new Search({
   	view: view
 	});
@@ -327,22 +442,42 @@ content: legend
 view.ui.add(lbgExpand, "bottom-right");
 
 
-
-
-
-
-
-  function hearEvents(){
-    dropdownchange.addEventListener("change", displayIndividualLayers);
-    slider.addEventListener("change", displayIndividualLayers);
+  function removeVisible() {
+    var i;
+    var j;
+    for(i=0;i<2;i++){ // -----------------------------------create global variables for the cols and rows
+      for(j=0;j<7;j++){
+          rendered_layers[i][j].visible = false;
+      }
+    }
   }
 
+function pullLayerForward(year, data) {
+  removeVisible();
+  rendered_layers[year][data].visible = true;
+}
+
+function displayIndividualLayers() {
+  dropdownvalue = fields.value;
+  slidervalue = htmlslider.value;
+  if(dropdownvalue == "F2000b_col_"){
+    if(slidervalue == 0){ pullLayerForward(0,0); } else {pullLayerForward(1,0);}
+  }else if (dropdownvalue == "F2000per_ed"){
+    if(slidervalue == 0){ pullLayerForward(0,1);} else {pullLayerForward(1,1);}
+  }else if (dropdownvalue == "F2000med_ag"){
+    if(slidervalue == 0){ pullLayerForward(0,2);} else {pullLayerForward(1,2);}
+  }else if (dropdownvalue == "F2000med_in"){
+    if(slidervalue == 0){ pullLayerForward(0,3);} else {pullLayerForward(1,2);}
+  }else if (dropdownvalue == "F2000num_po"){
+    if(slidervalue == 0){ pullLayerForward(0,4);} else {pullLayerForward(1,2);}
+  }else if (dropdownvalue == "F2000num_fa"){
+    if(slidervalue == 0){ pullLayerForward(0,5);} else {pullLayerForward(1,2);}
+  }else{
+    if(slidervalue == 0){ pullLayerForward(0,6);} else {pullLayerForward(1,3);}
+  }
+}
 
 
-  hearEvents();
-
-
-//********************************!!!!!!!!!!!!!TESTING!!!!!!!!!!!***************
 
 
 function fillSymbol(type,colors,style,outline_color){
@@ -414,14 +549,40 @@ function renderChange(expression){
 
 
 function createExpression(year_two,year_one){
-  return "(($feature.F"+year_two+" - $feature.F"+year_one+")/$feature.F"+year_one+")*100";
+  return "(($feature."+year_two+" - $feature."+year_one+")/$feature."+year_one+")*100";
 }
 
-renderChange(createExpression(agevariables[1],agevariables[0]));
+var field_numbers = [];
+
+function setFieldValueNumber(){
+  var i;
+  for (i = 0;i <7; i++){
+    
+  }
+}
 
 
+function runAnalyze (){
+  removeVisible();
+  dropdowndatevalue1 = date_one.value;
+  dropdowndatevalue2 = date_two.value;
+  renderChange(createExpression(variable_choices[dropdowndatevalue2][2],variable_choices[dropdowndatevalue1][2]));
+  master_layer.renderer = per_change_render
+
+}
 
 
+function destroyChangeLayer(){
+
+}
+
+function hearEvents(){
+  dropdownchange.addEventListener("change", displayIndividualLayers);
+  slider.addEventListener("change", displayIndividualLayers);
+  analyzebutton.addEventListener("click",runAnalyze);
+}
+
+hearEvents();
 
   /* working natural color renderer
 
