@@ -1,0 +1,68 @@
+html, body, #viewDiv {
+   padding: 0;
+   margin: 0;
+   height: 100%;
+   width: 100%;
+ }
+
+#viewDiv {
+ position:relative;
+}
+
+#mydiv {
+   position: absolute;
+   z-index: 9;
+   background-color: #3A3838;
+   text-align: center;
+   border: 6px solid #0E6661;
+   border-style:double;
+   top: 3%;
+   left: 8%;
+   height: 30%;
+   width:300px;
+   opacity: 0.9;
+}
+
+#mydivheader {
+   padding: 10px;
+   cursor: move;
+   z-index: 10;
+   background-color: #0E6661;
+   color: #fff;
+}
+
+
+#date_one {
+  position:absolute;
+  width:15%;
+  top:50%;
+  left:12%;
+
+}
+
+#date_two {
+  position:absolute;
+  width:15%;
+  top:50%;
+  left:12%;
+
+}
+
+#fields {
+  position:absolute;
+  width:95%;
+  top: 28%;
+  right: 2%;
+}
+
+#variableselector{
+  text-align: center;
+  left: 15%;
+  color:white;
+}
+
+#hidewindow {
+   position:absolute;
+   right: 1%;
+   top:1px;
+}
