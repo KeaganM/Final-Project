@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--The Head section references the various settings and files used throughout the code.
+ArcGIS API for Javascript was used along with the respective css files.-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Austin Urban Development</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://js.arcgis.com/4.9/"></script>
+</head>
+    <body onload="myFunction();" style="margin:0;">
+    <div id="loader"></div>
+    </div> 
+    <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index_final.html">Map of Austin</a>
+    <a href="about.html">About the Team</a>
+    <a href="References.html">References</a>
+  </div>
+  <div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  </div>
+  <h1>Austin Through The Ages</h1>
+  <div id="mydiv">
+   <button id = "hidewindow" type = "btn"><i class = "fa fa-window-minimize"></i></button>
+   <div id="mydivheader">Analysis Tab</div>
+   <div id= "variableselector"><p>Variable Changer </p></div>
+   <select id = "fields">
+  	<option value = "F2000b_col_">Number of Blue Collar Workers</option>
+  	<option value = "F2000per_ed">Precent of people with < Highschool</option>
+ 	  <option value = "F2000med_ag"> Median Age</option>
+  	<option value = "F2000med_in">Median Income</option>
+  	<option value = "F2000num_po">Number of Population</option>
+  	<option value = "F2000num_fa">Number of Family Population</option>
+    <option value = "F2000w_colo_">Number of White Collar Workers</option>
+  </select>
+  <div id = "amountofchange">
+    <p id = "amount">Amount of Change</p>
+    <p id = "year1">Year 1</p>
+    <p id = "year2"> Year 2</p>
+    <p id = "explain"> (Year 2 - Year 1/Year1 ) * 100 = Amount of Change</p>
+  </div>
+  <select id = "date_one">
+    <option value = "0">2000</option>
+    <option value = "1">2010</option>
+  </select>
+  <select id = "date_two">
+    <option value = "0">2000</option>
+    <option value = "1">2010</option>
+  </select>
+  <div>
+    <button id = "changebutton" type = "button">Analyze!</button>
+  </div>
+  <div id = "slider" class = "slidercontainer">
+  	<br><input autocomplete = "off" id = "htmlslider" type = "range" min = "0" max = "1" step = "1"  value ="0" class = "slider" onchange = "updateSliderValue()" >  <!-- autocomplete resets the slider position -->
+    <span id = "slidervalue">2000</span>
+  </div>
+</div>
+ <div class="loading"></div>
+<script src = "harpers.js"></script>
+<script src = "main.js"></script>
+<script src = "loader.js"></script>
+<div id ="viewDiv"> </div>
+</body>
+</html>
